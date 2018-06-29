@@ -1,29 +1,42 @@
 package com.chen.controller;
 
-import com.chen.dto.UserDTO;
+import com.chen.vo.UserVO;
 import com.chen.model.User;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * UserController
- *
  * @Author LeifChen
  * @Date 2018-06-28
  */
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
-    @GetMapping(value = "/user1")
+    @PostMapping
+    public User create(@Valid @RequestBody UserVO param, BindingResult errors) {
+        if (errors.hasErrors()) {
+            errors.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+        }
+
+        User user = new User();
+        user.setId(1);
+        user.setUsername(param.getUsername());
+        user.setBirthday(param.getBirthday());
+
+        return user;
+    }
+
+    @GetMapping
+    @JsonView(User.UserSimpleView.class)
     public List<User> findByName(@RequestParam(name = "name", required = false, defaultValue = "leifchen") String username) {
         System.out.println(username);
 
@@ -35,11 +48,9 @@ public class UserController {
         return users;
     }
 
-    @GetMapping(value = "/user2")
-    public List<User> query(UserDTO param, @PageableDefault(page = 3, size = 10, sort = "age asc") Pageable pageable) {
-        System.out.println(ReflectionToStringBuilder.toString(param, ToStringStyle.MULTI_LINE_STYLE));
+    @GetMapping("/page")
+    public List<User> page(UserVO param, @PageableDefault(page = 3, size = 5, sort = "age asc") Pageable pageable) {
         System.out.println(param);
-
         System.out.println(pageable.getPageNumber());
         System.out.println(pageable.getPageSize());
         System.out.println(pageable.getSort());
@@ -52,11 +63,12 @@ public class UserController {
         return users;
     }
 
-    @GetMapping(value = "/user/{id}")
+    @GetMapping("/{id:\\d+}")
+    @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
+        System.out.println(id);
         User user = new User();
         user.setUsername("leifchen");
         return user;
     }
-
 }
