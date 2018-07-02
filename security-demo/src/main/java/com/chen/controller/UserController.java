@@ -4,6 +4,8 @@ import com.chen.model.User;
 import com.chen.vo.UserVO;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,7 @@ import java.util.List;
 public class UserController {
 
     @PostMapping
+    @ApiOperation("创建用户")
     public User create(@Valid @RequestBody UserVO param, BindingResult errors) {
         if (errors.hasErrors()) {
             errors.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
@@ -49,7 +52,7 @@ public class UserController {
 
     @GetMapping
     @JsonView(User.UserSimpleView.class)
-    public List<User> findByName(@RequestParam(name = "name", required = false, defaultValue = "leifchen") String username) {
+    public List<User> findByName(@ApiParam("用户名") @RequestParam(name = "name", required = false, defaultValue = "leifchen") String username) {
         System.out.println(username);
         List<User> users = Lists.newArrayList();
         users.add(new User());
@@ -73,7 +76,7 @@ public class UserController {
 
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
-    public User getInfo(@PathVariable String id) {
+    public User getInfo(@ApiParam("用户id") @PathVariable String id) {
         // throw new UserNoExistException(id);
         System.out.println("进入getInfo");
         User user = new User();
