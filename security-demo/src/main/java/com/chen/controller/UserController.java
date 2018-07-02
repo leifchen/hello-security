@@ -1,8 +1,7 @@
 package com.chen.controller;
 
-import com.chen.exception.UserNoExistException;
-import com.chen.vo.UserVO;
 import com.chen.model.User;
+import com.chen.vo.UserVO;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.Lists;
 import org.springframework.data.domain.Pageable;
@@ -75,6 +74,10 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
-        throw new UserNoExistException(id);
+        // throw new UserNoExistException(id);
+        System.out.println("进入getInfo");
+        User user = new User();
+        user.setUsername("leifchen");
+        return user;
     }
 }
