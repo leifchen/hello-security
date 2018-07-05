@@ -2,8 +2,6 @@ package com.chen;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -12,7 +10,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Date 2018-06-28
  */
 @SpringBootApplication
-@RestController
 @EnableSwagger2
 public class DemoApplication {
 
@@ -20,8 +17,4 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @GetMapping(value = "/hello")
-    public String hello() {
-        return "hello spring security";
-    }
 }
