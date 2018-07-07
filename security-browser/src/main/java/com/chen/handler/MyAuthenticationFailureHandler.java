@@ -1,5 +1,6 @@
 package com.chen.handler;
 
+import com.chen.bean.JsonData;
 import com.chen.constant.LoginTypeEnum;
 import com.chen.property.SecurityProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +43,7 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
         if (LoginTypeEnum.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(e));
+            response.getWriter().write(objectMapper.writeValueAsString(new JsonData(e.getMessage())));
         } else {
             super.onAuthenticationFailure(request, response, e);
         }
