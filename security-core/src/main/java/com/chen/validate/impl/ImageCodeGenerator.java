@@ -1,6 +1,8 @@
-package com.chen.validate;
+package com.chen.validate.impl;
 
 import com.chen.property.SecurityProperties;
+import com.chen.validate.ImageCode;
+import com.chen.validate.ValidateCodeGenerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
- * ImageCodeGenerator
+ * 图片验证码生成器的实现类
  *
  * @Author LeifChen
  * @Date 2018-07-07

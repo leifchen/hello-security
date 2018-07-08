@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ValidateCodeProperties
+ * 验证码的配置属性文件
  *
  * @Author LeifChen
  * @Date 2018-07-07
@@ -14,4 +14,5 @@ import lombok.Setter;
 public class ValidateCodeProperties {
 
     private ImageCodeProperties image = new ImageCodeProperties();
+    private SmsCodeProperties sms = new SmsCodeProperties();
 }

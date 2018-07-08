@@ -3,7 +3,7 @@ package com.chen.validate;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * ValidateCodeGenerator
+ * 验证码生成器的接口
  *
  * @Author LeifChen
  * @Date 2018-07-07
@@ -16,5 +16,5 @@ public interface ValidateCodeGenerator {
      * @param request
      * @return
      */
-    ImageCode generate(ServletWebRequest request);
+    ValidateCode generate(ServletWebRequest request);
 }

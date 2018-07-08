@@ -4,14 +4,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ImageCodeProperties
+ * 图片验证码的配置属性文件
  *
  * @Author LeifChen
  * @Date 2018-07-07
  */
 @Getter
 @Setter
-public class ImageCodeProperties {
+public class ImageCodeProperties extends SmsCodeProperties {
+
+    /**
+     * 默认长度为4位
+     */
+    public ImageCodeProperties() {
+        setLength(4);
+    }
 
     /**
      * 宽
@@ -22,19 +29,4 @@ public class ImageCodeProperties {
      * 高
      */
     private int height = 20;
-
-    /**
-     * 字符长度
-     */
-    private int length = 4;
-
-    /**
-     * 有效时间
-     */
-    private int expireIn = 60;
-
-    /**
-     * 请求url
-     */
-    private String url;
 }
