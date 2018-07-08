@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @Author LeifChen
  * @Date 2018-07-03
  */
-@Service
+@Service("myUserDetailsService")
 @Slf4j
 public class MyUserDetailServiceImpl implements UserDetailsService {
 
