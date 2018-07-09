@@ -1,10 +1,11 @@
 package com.chen.config;
 
 import com.chen.property.SecurityProperties;
-import com.chen.validate.*;
-import com.chen.validate.impl.DefaultSmsCodeSender;
-import com.chen.validate.impl.ImageCodeGenerator;
-import com.chen.validate.impl.SmsCodeGenerator;
+import com.chen.validate.serivce.impl.DefaultSmsCodeSender;
+import com.chen.validate.serivce.impl.ImageCodeGenerator;
+import com.chen.validate.serivce.impl.SmsCodeGenerator;
+import com.chen.validate.serivce.SmsCodeSender;
+import com.chen.validate.serivce.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ public class ValidateCodeConfig {
         this.securityProperties = securityProperties;
     }
 
-    @Bean
+    @Bean("imageValidateCodeGenerator")
     @ConditionalOnMissingBean(name = "imageCodeGenerator")
     public ValidateCodeGenerator imageCodeGenerator() {
         ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
@@ -34,7 +35,7 @@ public class ValidateCodeConfig {
         return codeGenerator;
     }
 
-    @Bean
+    @Bean("smsValidateCodeGenerator")
     @ConditionalOnMissingBean(name = "smsCodeGenerator")
     public ValidateCodeGenerator smsCodeGenerator() {
         SmsCodeGenerator codeGenerator = new SmsCodeGenerator();

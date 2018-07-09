@@ -1,6 +1,6 @@
 package com.chen.config;
 
-import com.chen.filter.TimeFilter;
+import com.chen.validate.filter.TimeFilter;
 import com.chen.interceptor.TimeInterceptor;
 import org.assertj.core.util.Lists;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

@@ -1,6 +1,6 @@
 package com.chen.config;
 
-import com.chen.filter.ValidateCodeFilter;
+import com.chen.validate.filter.ValidateCodeFilter;
 import com.chen.handler.MyAuthenticationFailureHandler;
 import com.chen.handler.MyAuthenticationSuccessHandler;
 import com.chen.property.SecurityProperties;

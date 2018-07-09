@@ -1,7 +1,7 @@
 package com.chen.bean;
 
-import com.chen.validate.ImageCode;
-import com.chen.validate.ValidateCodeGenerator;
+import com.chen.validate.bean.ImageCode;
+import com.chen.validate.serivce.ValidateCodeGenerator;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
