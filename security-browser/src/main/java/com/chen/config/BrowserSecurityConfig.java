@@ -1,6 +1,6 @@
 package com.chen.config;
 
-import com.chen.validate.filter.ValidateCodeFilter;
+import com.chen.validate.code.common.ValidateCodeFilter;
 import com.chen.handler.MyAuthenticationFailureHandler;
 import com.chen.handler.MyAuthenticationSuccessHandler;
 import com.chen.property.SecurityProperties;
@@ -43,6 +43,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsService myUserDetailsService;
 
+    @Resource
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -79,6 +82,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .apply(smsCodeAuthenticationSecurityConfig);
     }
 }

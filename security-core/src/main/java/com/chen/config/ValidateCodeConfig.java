@@ -1,11 +1,11 @@
 package com.chen.config;
 
 import com.chen.property.SecurityProperties;
-import com.chen.validate.serivce.impl.DefaultSmsCodeSender;
-import com.chen.validate.serivce.impl.ImageCodeGenerator;
-import com.chen.validate.serivce.impl.SmsCodeGenerator;
-import com.chen.validate.serivce.SmsCodeSender;
-import com.chen.validate.serivce.ValidateCodeGenerator;
+import com.chen.validate.code.sms.impl.DefaultSmsCodeSender;
+import com.chen.validate.code.image.ImageCodeGenerator;
+import com.chen.validate.code.sms.SmsCodeGenerator;
+import com.chen.validate.code.sms.SmsCodeSender;
+import com.chen.validate.code.common.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
