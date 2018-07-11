@@ -1,6 +1,6 @@
-package com.chen.handler;
+package com.chen.browser.handler;
 
-import com.chen.bean.JsonData;
+import com.chen.browser.bean.JsonData;
 import com.chen.constant.LoginTypeEnum;
 import com.chen.property.SecurityProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;

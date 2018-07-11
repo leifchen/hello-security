@@ -1,4 +1,4 @@
-package com.chen.validate.code.controller;
+package com.chen.browser.controller;
 
 import com.chen.model.User;
 import com.chen.vo.UserVO;

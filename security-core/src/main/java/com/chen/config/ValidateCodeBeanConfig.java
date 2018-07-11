@@ -18,12 +18,12 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2018-07-07
  */
 @Configuration
-public class ValidateCodeConfig {
+public class ValidateCodeBeanConfig {
 
-    private SecurityProperties securityProperties;
+    private final SecurityProperties securityProperties;
 
     @Autowired
-    public ValidateCodeConfig(SecurityProperties securityProperties) {
+    public ValidateCodeBeanConfig(SecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 

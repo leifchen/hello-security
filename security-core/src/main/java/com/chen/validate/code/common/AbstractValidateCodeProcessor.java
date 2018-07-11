@@ -101,7 +101,6 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
     @Override
     public void validate(ServletWebRequest request) {
-
         ValidateCodeTypeEnum processorType = getValidateCodeType(request);
         String sessionKey = getSessionKey(request);
 

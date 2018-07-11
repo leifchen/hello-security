@@ -1,6 +1,7 @@
-package com.chen.validate.code.controller;
+package com.chen.browser.controller;
 
-import com.chen.bean.JsonData;
+import com.chen.browser.bean.JsonData;
+import com.chen.constant.SecurityConstant;
 import com.chen.property.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +28,7 @@ import java.io.IOException;
  */
 @RestController
 @Slf4j
-public class SecurityController {
+public class BrowserSecurityController {
 
     private static final String END_WITH_HTML = ".html";
 
@@ -38,22 +39,22 @@ public class SecurityController {
     private final SecurityProperties securityProperties;
 
     @Autowired
-    public SecurityController(SecurityProperties securityProperties) {
+    public BrowserSecurityController(SecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 
     /**
      * 需要身份认证的跳转页面
+     *
      * @param request
      * @param response
      * @return
      * @throws IOException
      */
-    @RequestMapping("/auth/require")
+    @RequestMapping(SecurityConstant.DEFAULT_UNAUTHENTICATION_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public JsonData requireAuth(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SavedRequest savedRequest = requestCache.getRequest(request, response);
-
         if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();
             log.info("引发跳转的请求是：{}", targetUrl);

@@ -1,4 +1,4 @@
-package com.chen.validate.code.controller;
+package com.chen.browser.controller;
 
 import com.chen.dto.FileDTO;
 import org.apache.commons.io.IOUtils;

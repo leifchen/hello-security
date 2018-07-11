@@ -1,8 +1,7 @@
-package com.chen.bean;
+package com.chen.browser.bean;
 
 import com.chen.validate.code.common.ValidateCodeGenerator;
 import com.chen.validate.code.image.ImageCode;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @Author LeifChen
  * @Date 2018-07-08
  */
-@Component("imageCodeGenerator")
+//@Component("imageCodeGenerator")
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
 
     @Override

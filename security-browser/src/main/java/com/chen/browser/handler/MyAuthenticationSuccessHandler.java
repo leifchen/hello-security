@@ -1,4 +1,4 @@
-package com.chen.handler;
+package com.chen.browser.handler;
 
 import com.chen.constant.LoginTypeEnum;
 import com.chen.property.SecurityProperties;

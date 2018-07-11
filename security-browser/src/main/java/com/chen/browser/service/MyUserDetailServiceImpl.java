@@ -1,4 +1,4 @@
-package com.chen.service;
+package com.chen.browser.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.AuthorityUtils;

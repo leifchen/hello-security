@@ -1,8 +1,10 @@
-package com.chen.config;
+package com.chen.browser.config;
 
-import com.chen.validate.code.common.ValidateCodeFilter;
-import com.chen.handler.MyAuthenticationFailureHandler;
-import com.chen.handler.MyAuthenticationSuccessHandler;
+import com.chen.browser.handler.MyAuthenticationFailureHandler;
+import com.chen.browser.handler.MyAuthenticationSuccessHandler;
+import com.chen.config.SmsCodeAuthenticationSecurityConfig;
+import com.chen.config.ValidateCodeSecurityConfig;
+import com.chen.constant.SecurityConstant;
 import com.chen.property.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -28,14 +29,7 @@ import javax.sql.DataSource;
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private SecurityProperties securityProperties;
-
-    @Resource
-    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
-
-    @Resource
-    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+    private final SecurityProperties securityProperties;
 
     @Resource
     private DataSource dataSource;
@@ -44,7 +38,21 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService myUserDetailsService;
 
     @Resource
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Resource
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+
+    @Resource
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
+    @Resource
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+    @Autowired
+    public BrowserSecurityConfig(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -60,29 +68,20 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
 
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                .loginPage("/auth/require")
-                .loginProcessingUrl("/auth/form")
-                .successHandler(myAuthenticationSuccessHandler)
-                .failureHandler(myAuthenticationFailureHandler)
+        http.apply(validateCodeSecurityConfig)
                 .and()
+                .apply(smsCodeAuthenticationSecurityConfig).and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(myUserDetailsService)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/require", securityProperties.getBrowser().getLoginPage(), "/code/*").permitAll()
+                .antMatchers(SecurityConstant.DEFAULT_UNAUTHENTICATION_URL, securityProperties.getBrowser().getLoginPage(), SecurityConstant.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf().disable()
-                .apply(smsCodeAuthenticationSecurityConfig);
+                .csrf().disable();
     }
 }

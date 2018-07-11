@@ -1,4 +1,4 @@
-package com.chen.bean;
+package com.chen.browser.bean;
 
 import lombok.Getter;
 import lombok.Setter;
