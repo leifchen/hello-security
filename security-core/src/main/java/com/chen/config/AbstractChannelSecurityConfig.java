@@ -17,12 +17,12 @@ import javax.annotation.Resource;
 public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Resource
-	protected AuthenticationSuccessHandler myAuthenticationSuccessHandler;
+	private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
 	
 	@Resource
-	protected AuthenticationFailureHandler myAuthenticationFailureHandler;
+	private AuthenticationFailureHandler myAuthenticationFailureHandler;
 	
-	protected void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception {
+	public void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception {
 		http.formLogin()
 			.loginPage(SecurityConstant.DEFAULT_UNAUTHENTICATION_URL)
 			.loginProcessingUrl(SecurityConstant.DEFAULT_LOGIN_PROCESSING_URL_FORM)

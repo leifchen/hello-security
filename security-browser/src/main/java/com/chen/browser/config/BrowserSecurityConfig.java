@@ -2,6 +2,7 @@ package com.chen.browser.config;
 
 import com.chen.browser.handler.MyAuthenticationFailureHandler;
 import com.chen.browser.handler.MyAuthenticationSuccessHandler;
+import com.chen.config.AbstractChannelSecurityConfig;
 import com.chen.config.SmsCodeAuthenticationSecurityConfig;
 import com.chen.config.ValidateCodeSecurityConfig;
 import com.chen.constant.SecurityConstant;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +27,7 @@ import javax.sql.DataSource;
  * @Date 2018-07-03
  */
 @Configuration
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     private final SecurityProperties securityProperties;
 
@@ -68,6 +68,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        applyPasswordAuthenticationConfig(http);
 
         http.apply(validateCodeSecurityConfig)
                 .and()
